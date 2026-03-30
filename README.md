@@ -6,7 +6,7 @@
 
 An interactive, end-to-end Exploratory Data Analysis (EDA) and Advanced Analytics dashboard built for e-commerce. This application transforms raw transactional data into actionable business intelligence, featuring automated customer segmentation and a market basket recommendation engine.
 
-**🔴 Live Demo:** [View the Dashboard on Streamlit Cloud](https://[Your Streamlit Cloud URL])
+**🔴 Live Demo:** [View the Dashboard on Streamlit Cloud](https://retail-analytics-dashboard-wsjerjfp6hnkbsxcrjp2yu.streamlit.app)
 
 ---
 
