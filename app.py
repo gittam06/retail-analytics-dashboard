@@ -86,7 +86,7 @@ def render_macro_eda(df):
         fig_revenue = px.area(monthly_revenue, x='YearMonth', y='Total_Sales', 
                               title="Total Revenue Trend", template="plotly_white")
         fig_revenue.update_traces(line_color='#2E86C1', fillcolor='rgba(46, 134, 193, 0.2)')
-        st.plotly_chart(fig_revenue, use_container_width=True)
+        st.plotly_chart(fig_revenue, width="stretch")
         
     with col2:
         top_products = df.groupby('Description')['Quantity'].sum().sort_values(ascending=False).head(10).reset_index()
@@ -94,7 +94,7 @@ def render_macro_eda(df):
                               orientation='h', title="Top Products by Volume", template="plotly_white",
                               color='Quantity', color_continuous_scale='Blues')
         fig_products.update_layout(yaxis={'categoryorder':'total ascending'}, showlegend=False) 
-        st.plotly_chart(fig_products, use_container_width=True)
+        st.plotly_chart(fig_products, width="stretch")
 
 # ==========================================
 # MODULE C: RFM Customer Segmentation
@@ -142,14 +142,14 @@ def render_rfm_segmentation(df):
     
     col1, col2 = st.columns([2, 1])
     with col1:
-        st.dataframe(rfm.head(15), use_container_width=True)
+        st.dataframe(rfm.head(15), width="stretch")
     with col2:
         segment_counts = rfm['Segment_Label'].value_counts().reset_index()
         segment_counts.columns = ['Segment_Label', 'Count']
         fig_segments = px.pie(segment_counts, names='Segment_Label', values='Count', 
                               title="Customer Segments", hole=0.4, template="plotly_white")
         fig_segments.update_traces(textposition='inside', textinfo='percent+label')
-        st.plotly_chart(fig_segments, use_container_width=True)
+        st.plotly_chart(fig_segments, width="stretch")
 
 # ==========================================
 # MODULE D: Market Basket Analysis
@@ -174,7 +174,7 @@ def render_market_basket(df):
             if x <= 0: return 0
             if x >= 1: return 1
         
-        basket_sets = basket.applymap(encode_units)
+        basket_sets = basket.map(encode_units)
         frequent_itemsets = apriori(basket_sets, min_support=0.03, use_colnames=True)
         
         if frequent_itemsets.empty:
@@ -188,7 +188,7 @@ def render_market_basket(df):
         rules['consequents'] = rules['consequents'].apply(lambda x: ', '.join(list(x)))
         
         st.markdown("### Top Product Recommendations")
-        st.dataframe(rules[['antecedents', 'consequents', 'support', 'confidence', 'lift']].head(15), use_container_width=True)
+        st.dataframe(rules[['antecedents', 'consequents', 'support', 'confidence', 'lift']].head(15), width="stretch")
 
 # ==========================================
 # MAIN APP
